@@ -45,16 +45,17 @@
 import { mapActions, mapGetters } from "vuex";
 
 export default {
+  props: ["blog"],
+  components: {
+    Modal: () => import("../components/Modal.vue"),
+    Dialog: () => import("../components/Dialog.vue"),
+  },
   data: () => ({
     apiDomain: "https://demo-api-vue.sanbercloud.com",
     showModal: false,
     buttonStatus: "login",
     showDialog: false,
   }),
-  components: {
-    Modal: () => import("../components/Modal.vue"),
-    Dialog: () => import("../components/Dialog.vue"),
-  },
   computed: {
     ...mapGetters({
       token: "auth/token",
@@ -69,10 +70,8 @@ export default {
         photo: blog.photo,
       };
       this.setDialogComponent({ component: "editblog" }),
-        //      this.setId({'id' : id}),
         this.setBlogitem({ blogitem: blogdata });
     },
-
     upload(blog) {
       let data = {
         id: blog.id,
@@ -83,13 +82,11 @@ export default {
       this.setDialogComponent({ component: "uploadphoto" }),
         this.setBlogitem({ blogitem: data });
     },
-
     ...mapActions({
       setDialogComponent: "dialog/setComponent",
       setId: "blogid/setId",
       setBlogitem: "blogid/setBlogitem",
     }),
   },
-  props: ["blog"],
 };
 </script>
