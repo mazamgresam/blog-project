@@ -1,10 +1,8 @@
 <template>
-  <!-- App.vue -->
   <v-app>
     <Alert />
     <Dialog />
-
-    <v-navigation-drawer app v-model="drawer">
+    <v-navigation-drawer class="blue-grey darken-1" app v-model="drawer">
       <v-list>
         <v-list-item v-if="!guest">
           <v-list-item-avatar>
@@ -22,18 +20,20 @@
         </v-list-item>
 
         <div class="pa-2" v-if="guest">
-          <v-btn block color="primary" class="mb-1" @click="login">
+          <v-btn block color="success" class="mb-1" @click="login">
             <v-icon left>mdi-lock</v-icon>
-            Log in
+            Login
           </v-btn>
-          <v-btn block color="success" @click="register">
+          <v-btn block color="warning" @click="register">
             <v-icon left>mdi-account</v-icon>
             Register
           </v-btn>
         </div>
+
         <v-divider></v-divider>
 
         <v-list-item
+          class="font-weight-medium"
           v-for="(item, index) in menus"
           :key="`menu-${index}`"
           :to="item.route"
@@ -43,7 +43,9 @@
           </v-list-item-icon>
 
           <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
+            <v-list-item-title class="white--text">{{
+              item.title
+            }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -57,13 +59,15 @@
       </template>
     </v-navigation-drawer>
 
-    <v-app-bar app color="success" dark>
+    <v-app-bar app color="blue-grey darken-3" dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>Tim 10 JCC</v-toolbar-title>
+      <v-toolbar-title class="blue--text font-weight-bold"
+        >Blog Project</v-toolbar-title
+      >
       <v-spacer></v-spacer>
     </v-app-bar>
-    <v-main>
+    <v-main class="blue-grey darken-1">
       <v-container fluid>
         <v-slide-y-transition>
           <router-view></router-view>
@@ -71,7 +75,26 @@
       </v-container>
     </v-main>
 
-    <v-footer app> @JCC Tim 10 | VueJS </v-footer>
+    <v-footer class="flex-column blue-grey darken-3">
+      <v-card-title>
+        <a
+          class="text-decoration-none"
+          v-for="connect in connects"
+          :key="connect.icon"
+          :href="connect.link"
+        >
+          <v-btn class="mx-4" dark icon>
+            <v-icon size="32px">
+              {{ connect.icon }}
+            </v-icon>
+          </v-btn>
+        </a>
+      </v-card-title>
+      <v-card-text class="blue--text text-center">
+        {{ new Date().getFullYear() }} —
+        <strong>M. Azam Gresa Mahendra</strong>
+      </v-card-text>
+    </v-footer>
   </v-app>
 </template>
 
@@ -90,8 +113,18 @@ export default {
     menus: [
       { title: "Home", icon: "mdi-home", route: "/" },
       { title: "Blogs", icon: "mdi-note", route: "/blogs" },
+      { title: "About", icon: "mdi-account", route: "/about" },
     ],
     apiDomain: "https://demo-api-vue.sanbercloud.com",
+    connects: [
+      { link: "https://www.facebook.com/shaolinzam", icon: "mdi-facebook" },
+      { link: "https://github.com/mazamgresam", icon: "mdi-github" },
+      {
+        link: "https://www.linkedin.com/in/m-azam-gresa-mahendra-681204217/",
+        icon: "mdi-linkedin",
+      },
+      { link: "https://www.instagram.com/mazadram/", icon: "mdi-instagram" },
+    ],
   }),
 
   computed: {
@@ -111,7 +144,7 @@ export default {
     logout() {
       let config = {
         method: "post",
-        url: this.apiDomain + "/api/v2/auth/logout",
+        url: `${this.apiDomain}/api/v2/auth/logout`,
         headers: {
           Authorization: "Bearer" + this.token,
         },
