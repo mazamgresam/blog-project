@@ -4,7 +4,7 @@
       <v-btn
         text
         to="/blogs"
-        class="rounded-xl blue-grey darken-3 blue--text font-weight-black"
+        class="rounded-xl blue-grey darken-3 blue--text font-weight-black my-2"
       >
         See All Blogs <v-icon>mdi-chevron-right</v-icon>
       </v-btn>
