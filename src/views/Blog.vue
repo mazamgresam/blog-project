@@ -1,28 +1,19 @@
 <template>
-  <div>
-    <v-card v-if="blog.id">
+  <div class="pa-10">
+    <v-card class="ma-auto" width="70%" v-if="blog.id">
       <v-img
-        :src="
-          blog.photo ? apiDomain + blog.photo : 'https://picsum.photos/200/300'
-        "
-        class="white--text"
-        height="700px"
-      >
-        <v-card-title
-          class="fill-height align-end"
-          v-text="blog.title"
-        ></v-card-title>
-      </v-img>
+        :src="blog.photo ? apiDomain + blog.photo : 'https://picsum.photos/700'"
+      ></v-img>
 
-      <v-card-text>
-        <v-simple-table dense>
+      <v-card-text class="font-weight-bold blue-grey darken-2">
+        <v-simple-table class="blue-grey lighten-3">
           <tbody>
             <tr>
-              <td><v-icon>mdi-format-title</v-icon> Judul</td>
+              <td><v-icon>mdi-format-title</v-icon> Title</td>
               <td class="blue--text">{{ blog.title }}</td>
             </tr>
             <tr>
-              <td><v-icon>mdi-note</v-icon> Deskripsi</td>
+              <td><v-icon>mdi-note</v-icon> Description</td>
               <td>{{ blog.description }}</td>
             </tr>
           </tbody>

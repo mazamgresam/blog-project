@@ -1,24 +1,23 @@
 <template>
-  <v-flex xs6>
-    <v-card>
+  <v-flex class="blue-grey darken-2 rounded-lg ma-3">
+    <v-card class="pa-4 blue-grey ma-auto">
       <v-img
         :src="
-          blog.photo ? apiDomain + blog.photo : 'https://picsum.photos/200/300'
+          blog.photo ? apiDomain + blog.photo : 'https://picsum.photos/300/300'
         "
-        class="white--text"
+        width="350px"
         height="300px"
+        class="white--text ma-auto rounded-lg"
       >
-        <v-card-title class="fill-height align-end"
-          >{{ blog.title.substring(0, 30) }}...</v-card-title
-        >
+        <v-card-title class="fill-height align-end">
+          {{ blog.title.substring(0, 30) }}...
+        </v-card-title>
       </v-img>
 
       <v-card-actions>
-        <span
-          ><v-btn color="primary" :to="`/blog/` + blog.id"
-            >Read More</v-btn
-          ></span
-        >
+        <span>
+          <v-btn color="primary" :to="`/blog/` + blog.id"> Read More </v-btn>
+        </span>
         <v-spacer></v-spacer>
         <Modal :id="blog.id" :visible="showModal" @close="showModal = false" />
         <div v-if="token">
