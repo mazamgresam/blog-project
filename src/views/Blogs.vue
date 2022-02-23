@@ -15,7 +15,7 @@
       v-model="page"
       @input="go"
       :length="lengthPage"
-      :total-visible="7"
+      :total-visible="5"
     >
     </v-pagination>
 

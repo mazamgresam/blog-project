@@ -2,17 +2,18 @@
   <v-container grid-list-xl>
     <div class="text-right">
       <v-btn
-        text
+        append-icon="mdi-chevron-right"
         to="/blogs"
         class="rounded-xl blue-grey darken-3 blue--text font-weight-black my-2"
       >
-        See All Blogs <v-icon>mdi-chevron-right</v-icon>
+        See All Blogs
       </v-btn>
     </div>
-    <v-layout wrap>
+
+    <v-layout justify-center wrap>
       <blog-item-component
         v-for="blog in blogs"
-        :key="`blog-${blog.id}`"
+        :key="blog.id"
         :blog="blog"
       ></blog-item-component>
     </v-layout>
@@ -28,9 +29,11 @@ export default {
     apiDomain: "https://demo-api-vue.sanbercloud.com/",
     blogs: [],
   }),
+
   created() {
     this.go();
   },
+
   methods: {
     go() {
       const config = {
