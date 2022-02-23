@@ -7,7 +7,7 @@
       <v-toolbar-title>Upload Photo</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
-        <v-btn dark text @click="uploadPhoto"> Save </v-btn>
+        <v-btn dark text @click="uploadPhoto"> Upload </v-btn>
       </v-toolbar-items>
     </v-toolbar>
     <v-list three-line subheader>
@@ -17,7 +17,7 @@
           <v-file-input
             v-model="photo"
             prepend-icon="mdi-camera"
-            label="File input"
+            label="Foto"
           ></v-file-input>
         </v-list-item-content>
       </v-list-item>
@@ -52,20 +52,18 @@ export default {
     ...mapActions({
       setAlert: "alert/set",
     }),
-
     uploadPhoto() {
       let formData = new FormData();
       formData.append("photo", this.photo);
       const config = {
         method: "post",
-        url: this.apiDomain + "/api/v2/blog/" + this.id + "/upload-photo",
+        url: `${this.apiDomain}/api/v2/blog/${this.id}/upload-photo`,
         headers: {
           Authorization: "Bearer " + this.token,
           "Content-Type": "multipart/form-data",
         },
         data: formData,
       };
-
       this.axios(config)
         .then(() => {
           this.setAlert({
@@ -79,7 +77,6 @@ export default {
         })
         .catch((response) => {
           console.log(response);
-
           this.setAlert({
             status: true,
             color: "error",
@@ -90,7 +87,6 @@ export default {
     close() {
       this.$emit("closed");
     },
-
     clear() {
       (this.title = ""), (this.description = ""), (this.photo = null);
     },

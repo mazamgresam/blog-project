@@ -63,21 +63,19 @@ export default {
     ...mapActions({
       setAlert: "alert/set",
     }),
-
     submit() {
       let formData = new FormData();
       formData.append("title", this.title);
       formData.append("description", this.description);
       const config = {
         method: "post",
-        url: this.apiDomain + "/api/v2/blog/" + this.id + "?_method=PUT",
+        url: `${this.apiDomain}/api/v2/blog/${this.id}?_method=PUT`,
         headers: {
           Authorization: "Bearer " + this.token,
           Accept: "application/json",
         },
         data: formData,
       };
-
       this.axios(config)
         .then(() => {
           this.setAlert({
@@ -91,7 +89,6 @@ export default {
         })
         .catch((response) => {
           console.log(response);
-
           this.setAlert({
             status: true,
             color: "error",
@@ -102,11 +99,11 @@ export default {
     close() {
       this.$emit("closed");
     },
-
     clear() {
       (this.title = ""), (this.description = ""), (this.photo = null);
     },
   },
+
   created() {
     (this.id = this.blogitem.blogitem.id),
       (this.title = this.blogitem.blogitem.title),

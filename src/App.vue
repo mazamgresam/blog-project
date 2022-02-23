@@ -2,6 +2,7 @@
   <v-app>
     <Alert />
     <Dialog />
+
     <v-navigation-drawer class="blue-grey darken-1" app v-model="drawer">
       <v-list>
         <v-list-item v-if="!guest">
@@ -14,11 +15,8 @@
               "
             ></v-img>
           </v-list-item-avatar>
-          <v-list-item-content>
-            <v-list-item-title>{{ user.name }}</v-list-item-title>
-          </v-list-item-content>
+          <v-list-item-title>{{ user.name }}</v-list-item-title>
         </v-list-item>
-
         <div class="pa-2" v-if="guest">
           <v-btn block color="success" class="mb-1" @click="login">
             <v-icon left>mdi-lock</v-icon>
@@ -29,9 +27,7 @@
             Register
           </v-btn>
         </div>
-
         <v-divider></v-divider>
-
         <v-list-item
           class="font-weight-medium"
           v-for="(item, index) in menus"
@@ -41,11 +37,10 @@
           <v-list-item-icon>
             <v-icon left>{{ item.icon }}</v-icon>
           </v-list-item-icon>
-
           <v-list-item-content>
-            <v-list-item-title class="white--text">{{
-              item.title
-            }}</v-list-item-title>
+            <v-list-item-title class="white--text">
+              {{ item.title }}
+            </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -61,12 +56,12 @@
 
     <v-app-bar app color="blue-grey darken-3" dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-
-      <v-toolbar-title class="blue--text font-weight-bold"
-        >Blog Project</v-toolbar-title
-      >
+      <v-toolbar-title class="blue--text font-weight-bold">
+        BLOG PROJECT
+      </v-toolbar-title>
       <v-spacer></v-spacer>
     </v-app-bar>
+
     <v-main class="blue-grey darken-1">
       <v-container fluid>
         <v-slide-y-transition>
@@ -129,9 +124,9 @@ export default {
 
   computed: {
     ...mapGetters({
-      guest: "auth/guest",
       user: "auth/user",
       token: "auth/token",
+      guest: "auth/guest",
     }),
   },
 
@@ -140,7 +135,11 @@ export default {
       setToken: "auth/setToken",
       setUser: "auth/setUser",
     }),
-
+    ...mapActions({
+      setAlert: "alert/set",
+      setDialogComponent: "dialog/setComponent",
+      checkToken: "auth/checkToken",
+    }),
     logout() {
       let config = {
         method: "post",
@@ -153,7 +152,6 @@ export default {
         .then(() => {
           this.setToken("");
           this.setUser({});
-
           this.setAlert({
             status: true,
             color: "success",
@@ -168,20 +166,12 @@ export default {
           });
         });
     },
-
     login() {
       this.setDialogComponent({ component: "login" });
     },
-
     register() {
       this.setDialogComponent({ component: "register" });
     },
-
-    ...mapActions({
-      setAlert: "alert/set",
-      setDialogComponent: "dialog/setComponent",
-      checkToken: "auth/checkToken",
-    }),
   },
 
   mounted() {

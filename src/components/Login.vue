@@ -11,7 +11,7 @@
       <v-form ref="form">
         <v-text-field
           v-model="email"
-          label="E-mail"
+          label="Email"
           required
           append-icon="mdi-email"
         ></v-text-field>
@@ -23,7 +23,6 @@
           counter
           @click:append="showPassword = !showPassword"
         ></v-text-field>
-
         <div class="text-xs-center">
           <v-btn color="success lighten-1" @click="submit">
             Log in
@@ -47,23 +46,22 @@ export default {
       apiDomain: "https://demo-api-vue.sanbercloud.com/",
     };
   },
+
   methods: {
     ...mapActions({
       setAlert: "alert/set",
       setToken: "auth/setToken",
     }),
-
     close() {
       this.$emit("closed", false);
     },
     clear() {
       (this.email = ""), (this.password = "");
     },
-
     submit() {
       const config = {
         method: "post",
-        url: this.apiDomain + "api/v2/auth/login",
+        url: `${this.apiDomain}api/v2/auth/login`,
         data: {
           email: this.email,
           password: this.password,
@@ -72,7 +70,6 @@ export default {
       this.axios(config)
         .then((response) => {
           this.setToken(response.data.access_token);
-
           this.setAlert({
             status: true,
             color: "success",
@@ -83,7 +80,6 @@ export default {
         })
         .catch((response) => {
           console.log(response);
-
           this.setAlert({
             status: true,
             color: "error",

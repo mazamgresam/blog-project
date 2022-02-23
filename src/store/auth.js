@@ -17,10 +17,8 @@ export default {
   actions: {
     setToken: ({ commit, dispatch }, payload) => {
       commit("setToken", payload);
-
       dispatch("checkToken", payload);
     },
-
     checkToken: ({ commit }, payload) => {
       const config = {
         method: "post",
@@ -29,7 +27,6 @@ export default {
           Authorization: "Bearer " + payload,
         },
       };
-
       axios(config)
         .then((response) => {
           commit("setUser", response.data);
@@ -39,7 +36,6 @@ export default {
           commit("setToken", "");
         });
     },
-
     setUser: ({ commit }, payload) => {
       commit("setUser", payload);
     },

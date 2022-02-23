@@ -7,7 +7,7 @@
       <v-toolbar-title>Add new blog</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
-        <v-btn dark text @click="submit"> Save </v-btn>
+        <v-btn dark text @click="submit"> Add Blog </v-btn>
       </v-toolbar-items>
     </v-toolbar>
     <v-list three-line subheader>
@@ -61,21 +61,19 @@ export default {
     ...mapActions({
       setAlert: "alert/set",
     }),
-
     submit() {
       let formData = new FormData();
       formData.append("title", this.title);
       formData.append("description", this.description);
       const config = {
         method: "post",
-        url: this.apiDomain + "/api/v2/blog",
+        url: `${this.apiDomain}/api/v2/blog`,
         headers: {
           Authorization: "Bearer " + this.token,
           Accept: "application/json",
         },
         data: formData,
       };
-
       this.axios(config)
         .then(() => {
           this.setAlert({
@@ -89,7 +87,6 @@ export default {
         })
         .catch((response) => {
           console.log(response);
-
           this.setAlert({
             status: true,
             color: "error",
@@ -100,7 +97,6 @@ export default {
     close() {
       this.$emit("closed");
     },
-
     clear() {
       (this.title = ""), (this.description = ""), (this.photo_profile = "");
     },

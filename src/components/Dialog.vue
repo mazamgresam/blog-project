@@ -30,7 +30,6 @@ export default {
       dialogStatus: "dialog/status",
       currentComponent: "dialog/component",
     }),
-
     dialog: {
       get() {
         return this.dialogStatus;

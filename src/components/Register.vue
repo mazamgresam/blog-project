@@ -11,7 +11,7 @@
       <v-form ref="form">
         <v-text-field
           v-model="email"
-          label="E-mail"
+          label="Email"
           required
           append-icon="mdi-email"
         ></v-text-field>
@@ -52,18 +52,17 @@ export default {
       apiDomain: "https://demo-api-vue.sanbercloud.com/",
     };
   },
+
   methods: {
     ...mapActions({
       setAlert: "alert/set",
     }),
-
     close() {
       this.$emit("closed", false);
     },
     clear() {
       (this.email = ""), (this.password = ""), (this.name = "");
     },
-
     register() {
       let formData = new FormData();
       formData.append("email", this.email);
@@ -72,7 +71,7 @@ export default {
       formData.append("photo_profile", this.photo_profile);
       const config = {
         method: "post",
-        url: this.apiDomain + "api/v2/auth/register",
+        url: `${this.apiDomain}api/v2/auth/register`,
         headers: {
           Accept: "application/json",
         },
@@ -90,7 +89,6 @@ export default {
         })
         .catch((response) => {
           console.log(response);
-
           this.setAlert({
             status: true,
             color: "error",

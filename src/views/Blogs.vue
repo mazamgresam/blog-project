@@ -1,10 +1,12 @@
 <template>
-  <v-container class="ma-0 pa-0" grid-list-sm>
-    <div v-if="token">
-      <v-btn @click="addNew"><v-icon left>mdi-plus</v-icon>Add New</v-btn>
+  <v-container grid-list-xl>
+    <div class="text-right" v-if="token">
+      <v-btn color="success" @click="addNew"
+        ><v-icon left>mdi-plus</v-icon>Add New</v-btn
+      >
     </div>
 
-    <v-layout wrap>
+    <v-layout justify-center wrap>
       <blog-item-component
         v-for="blog in blogs"
         :key="`blog` + blog.id"
@@ -27,6 +29,10 @@
 import { mapActions, mapGetters } from "vuex";
 
 export default {
+  components: {
+    BlogItemComponent: () => import("../components/BlogItemComponent.vue"),
+    Dialog: () => import("../components/Dialog.vue"),
+  },
   data: () => ({
     apiDomain: "https://demo-api-vue.sanbercloud.com",
     blogs: [],
@@ -36,11 +42,6 @@ export default {
     showDialog: false,
     buttonStatus: "login",
   }),
-
-  components: {
-    BlogItemComponent: () => import("../components/BlogItemComponent.vue"),
-    Dialog: () => import("../components/Dialog.vue"),
-  },
 
   computed: {
     ...mapGetters({
@@ -54,10 +55,9 @@ export default {
     go() {
       const config = {
         method: "get",
-        url: this.apiDomain + "/api/v2/blog?page=" + this.page,
+        url: `${this.apiDomain}/api/v2/blog?page="${this.page}`,
         params: { page: this.page },
       };
-
       this.axios(config)
         .then((response) => {
           let { blogs } = response.data;
@@ -73,7 +73,6 @@ export default {
     addNew() {
       this.setDialogComponent({ component: "tambahblog" });
     },
-
     ...mapActions({
       setDialogComponent: "dialog/setComponent",
     }),
